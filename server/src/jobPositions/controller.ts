@@ -3,6 +3,7 @@ import { Router } from "express";
 import logger from "../util/logger";
 import { Address } from "../model/address";
 import { JobPosition } from "./model";
+import { Recruiter } from "../recruiter/model";
 
 const router = Router();
 
@@ -16,15 +17,26 @@ router.post("/create", async (req, res) => {
     console.log("MY REQUEST BODY=" + JSON.stringify(req.body));
     logger.info("creating Recruiter");
     let newJob = req.body;
+    let recruiter_id = req.body.id;
     const aJob = new JobPosition({
-        title: newJob.title,
-        description: newJob.description,
-        tags: newJob.tags,
-        status: newJob.status,
-        postDate: newJob.postDate
-    });
-    await aJob.save();
-    res.send("ok");
+            title: newJob.title,
+            description: newJob.description,
+            tags: newJob.tags,
+            status: newJob.status,
+            postDate: newJob.postDate,
+        });
+    const pos = await aJob.save();
+
+    const query = {
+        recruiter_id:recruiter_id
+    };
+
+    const operator = {
+        $push:{ positions:pos._id}
+    };
+
+    await Recruiter.findOneAndUpdate(query,operator, {new:true});
+    res.send({msg:"ok"});
 });
 
 router.get('/search', async (req, res) => {

@@ -39,23 +39,18 @@ export class AuthComponent implements OnInit {
   submitLogin(loginForm) {
     this._dataService.login(this.model);
     this._dataService.credentials.subscribe((credentials: Credentials) => {
-
       console.log(this._authService.getDecodedToken());
-
-      this._dataService.getApplicantInfo();
+      // this._dataService.getApplicantInfo();
+      this._dataService.getRecruiterInfo();
       this.modalRef.hide();
-
     }, console.error);
   }
 
   submitRegister(registerForm) {
     this._dataService.register(this.model);
     this._dataService.credentials.subscribe((credentials: Credentials) => {
-
       console.log(this._authService.getDecodedToken());
-
       this.modalRef.hide();
-
     }, console.error);
   }
 

@@ -26,22 +26,11 @@ export class PublishJobComponent implements OnInit {
       status:'Open',
       postDate: new Date()
     };
-    this.dataService.createNewJob(newJob).subscribe(
-      result=>{
-        this.dataService.getJobPosition();
-        console.log("A new Job is created successfully...");
-        return true;
-      },
-      err =>{
-        console.error(err);
-        console.log("Job Creation Failed...");
-        // return Observable.throw(err);
-      }
-    );
+    this.dataService.createNewJob(newJob);
   }
   
   onSubmit(){
     this.router.navigateByUrl('/updateRecruiter');
-    // this.createNewJob();
+    this.createNewJob();
   }
 }

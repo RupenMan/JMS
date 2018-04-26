@@ -9,6 +9,7 @@
 import { model, Schema } from "mongoose";
 
 const jobPositionSchema: Schema = new Schema({
+    position_id:String,
     title: String,
     description: String,
     tags: String,

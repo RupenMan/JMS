@@ -11,8 +11,8 @@ const router = Router();
 
 router.get("/info", async (req, res) => {
     logger.info({ log: "this" });
-    console.log(req.url);
-    const recruiter = await Recruiter.findOne({name:"Rupendra"});
+    console.log(req.body._id);
+    const recruiter = await Recruiter.findOne({_id:req.body._id});
     res.send(recruiter);
 });
 
@@ -47,12 +47,14 @@ router.put('/update', async (req, res, next) => {
     console.log("My URL=" + JSON.stringify(req.body));
 
     const query ={
-        recruiter_id:body.recruiter_id
+        // name:req.body.name,
+        // name:body.name
+        _id:body.req.body.recruiter_id
     };
 
     const newEmployer = {
         $set: {
-            name: body.name,
+            // name: body.name,
             address: body.address,
             contact: body.contact,
             email: body.email,
@@ -62,7 +64,7 @@ router.put('/update', async (req, res, next) => {
         }};
     console.log();
     logger.info("Recruiter Updated");
-    await Recruiter.findOneAndUpdate(query,newEmployer,{upsert:true});
+    await Recruiter.findOneAndUpdate(query,newEmployer,{upsert:true, new:true});
     res.send({});
 
 });

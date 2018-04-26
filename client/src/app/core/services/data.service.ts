@@ -145,16 +145,29 @@ export class DataService {
   }
 
   createNewJob(newJob) {
-    let body = JSON.stringify(newJob);
-    return this._http.post(url + "/jobPosition/create", body, httpOptions);
+    let jsonBody = {id:name, newJob: newJob};
+    let body = JSON.stringify(jsonBody);
+    return this._http.post(url + "/jobPosition/create", body, httpOptions)
+      .subscribe(
+        result => console.log("New Position Created...", result),
+        err => console.error(err),
+      ()=>"Job Creation Operation Completed"
+      );
   }
 
-  getRecruiterInfo(name) {
+  getRecruiterInfo() {
     const token = localStorage.getItem('jwt');
     if (token) {
       const options = {
         headers: new HttpHeaders({ 'Authorization': `Bearer ${token}` })
       };
+
+      this._http.get(`${url}/recruiter/info`, options)
+        .subscribe((response : Recruiter) => {
+          console.log(response);
+          this.dataRepo.recruiter = response;
+          this._recruiter.next(Object.assign({}, this.dataRepo).recruiter);
+        }, console.error, ()=>console.log('get recruiter info done'));
     }
   }
 

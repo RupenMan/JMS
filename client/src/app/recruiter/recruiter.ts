@@ -8,7 +8,6 @@ import { JobPosition } from "../shared/models/jobPosition";
  */
  export class Recruiter{ 
     name: string;
-    // description: string;
      address: string;
      contact: string;
      email:string;
