@@ -18,12 +18,12 @@ export class RecruiterInfoComponent implements OnInit {
   }
   
   ngOnInit() {
-    this.dataService.getRecruiterInfo('Rupendra');
+    this.dataService.getRecruiterInfo();
     this.dataService.recruiter.subscribe(
       (response:Recruiter) => {
         console.log("Recruiter",response);
         this.recruiter=response;
-        console.log("True Recruiter", this.recruiter);
+        // console.log("True Recruiter", this.recruiter);
     },
       err => console.error(err)
     );

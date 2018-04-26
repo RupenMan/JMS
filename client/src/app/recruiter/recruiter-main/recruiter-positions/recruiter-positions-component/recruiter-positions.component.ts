@@ -4,6 +4,7 @@ import { JobPosition } from '../../../../shared/models/jobPosition';
 import { Recruiter } from '../../../recruiter';
 import { DataService } from '../../../../core/services/data.service';
 import { DatePipe } from '@angular/common';
+import { Applicant } from '../../../../shared/models/applicant';
 
 
 @Component({
@@ -21,12 +22,21 @@ export class RecruiterPositionsComponent implements OnInit {
   public isCollapsed: false;
   public jobPositions: JobPosition[];
   public recruiter: Recruiter;
-  constructor(private dataService: DataService) {
-    this.dataService.getJobPosition();
-    this.dataService.jobPosition.subscribe((response: JobPosition[]) => {
-      console.log("jobs");
-      this.jobPositions = response;
-    });
+  constructor(private _dataService: DataService) {
+    this._dataService.getRecruiterInfo();
+    this._dataService.recruiter.subscribe(
+      (data:Recruiter) => {
+        this.jobPositions = data.positions;
+        return true;
+      },
+      console.error,
+      () => console.log("Positions.fetched")
+    );
+    // this.dataService.getJobPosition();
+    // this.dataService.jobPosition.subscribe((response: JobPosition[]) => {
+    //   console.log("jobs");
+    //   this.jobPositions = response;
+    // });
   }
   ngOnInit() {
     // this.getRecruitersInfo();

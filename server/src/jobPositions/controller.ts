@@ -14,10 +14,10 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/create", async (req, res) => {
-    console.log("MY REQUEST BODY=" + JSON.stringify(req.body));
-    logger.info("creating Recruiter");
-    let newJob = req.body;
-    let recruiter_id = req.body.id;
+    console.log("MY REQUEST BODY=" + JSON.stringify(req.body.newJob));
+    logger.info("creating New Job");
+    let newJob = req.body.newJob;
+    // let recruiter_id = req.body.id;
     const aJob = new JobPosition({
             title: newJob.title,
             description: newJob.description,
@@ -28,7 +28,7 @@ router.post("/create", async (req, res) => {
     const pos = await aJob.save();
 
     const query = {
-        recruiter_id:recruiter_id
+        
     };
 
     const operator = {

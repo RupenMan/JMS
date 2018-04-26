@@ -46,7 +46,7 @@ router.get("/info", async (req, res) => {
     //         }
     //     ]
     // };
-    res.send(response);
+    // res.send(response);
 });
 
 

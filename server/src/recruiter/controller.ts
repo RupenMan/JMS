@@ -4,30 +4,35 @@ import logger from "../util/logger";
 import { Recruiter } from "./model";
 import { JobPosition } from "../jobPositions/model";
 import { Address } from "../model/address";
+import { isAuthenticated } from '../auth/controller';
 
 var mongoose = require('mongoose');
 
 const router = Router();
-
-router.get("/info", async (req, res) => {
+// 
+router.get("/info", isAuthenticated, async (req:any, res:any) => {
     logger.info({ log: "this" });
-    console.log(req.body._id);
-    const recruiter = await Recruiter.findOne({_id:req.body._id});
+    console.log("Inside Router");
+    const query = {
+        // email:"omg@"
+        user:req._id
+    };
+    const recruiter = await Recruiter.findOne(query).populate('user').populate('positions');
     res.send(recruiter);
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/me", async (req:any, res) => {
     logger.info({ log: "this" });
-    let id = req.params.id;
+    let id = req._id;
     
-    const recruiter = await Recruiter.findOne({name:id});
+    const recruiter = await Recruiter.findOne({user:id});
     res.send(recruiter);
 });
 
 router.post('/create', async (req, res, next) => {
     logger.info("Recruiter Created");
     let body = req.body;
-    console.log(body.name + body.address + body.contact + body.contact + body.email);
+    // console.log(body.name + body.address + body.contact + body.contact + body.email);
     const newEmployer = new Recruiter({
         name:body.name,
         address: body.address,
@@ -41,32 +46,28 @@ router.post('/create', async (req, res, next) => {
     res.send({});
 });
 
-router.put('/update', async (req, res, next) => {
+router.put('/update', async (req:any, res, next) => {
     
     let body = req.body;
     console.log("My URL=" + JSON.stringify(req.body));
 
     const query ={
-        // name:req.body.name,
-        // name:body.name
-        _id:body.req.body.recruiter_id
+            // email:"omg@",
+            user:req._id
     };
-
     const newEmployer = {
-        $set: {
-            // name: body.name,
-            address: body.address,
-            contact: body.contact,
-            email: body.email,
-            webLink: body.webLink,
-            positions:{$push: body.positions},
-            logoURL: body.logoURL
-        }};
+            $set: {
+                // name: body.name,
+                address: body.address,
+                contact: body.contact,
+                email: body.email,
+                webLink: body.webLink,
+                logoURL: body.logoURL
+            }};
     console.log();
     logger.info("Recruiter Updated");
     await Recruiter.findOneAndUpdate(query,newEmployer,{upsert:true, new:true});
     res.send({});
-
 });
 
 export const RecruiterController: Router = router;

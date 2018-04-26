@@ -30,22 +30,22 @@ export class UpdateRecruiterComponent implements OnInit {
   onSubmit(){
     // const fd = new FormData();
     // fd.append('image',this.selectedFile,this.selectedFile.name); 
-    console.log(this.jwtInfo.role);
+
+    // console.log(this.jwtInfo.role);
     let body = {
-      recruiter_id:this.jwtInfo._id,
-      name: this.name,
+      // name: this.name,
       address: this.address,
       contact: this.contact,
       webLink: this.userWebLink,
       email: this.email,
-      logoURL:""
+      logoURL:"https://www.pexels.com/photo/nature-red-love-romantic-67636/"
     };
     // this._dataService.createRecruiter(body);
     this._dataService.updateRecruiter(body);
   }
   
   getImage(event){
-    // console.log(event);
+    console.log(event);
     // this.selectedFile = event.target.files[0];
   }
 }

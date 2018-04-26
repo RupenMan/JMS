@@ -13,7 +13,7 @@ export class PublishJobComponent implements OnInit {
   @Input() title;
   @Input() description;
   @Input() tags;
-  constructor(private dataService: DataService,private router:Router) { }
+  constructor(private _dataService: DataService,private router:Router) { }
 
   ngOnInit() {
   }
@@ -26,7 +26,7 @@ export class PublishJobComponent implements OnInit {
       status:'Open',
       postDate: new Date()
     };
-    this.dataService.createNewJob(newJob);
+    this._dataService.createNewJob(newJob);
   }
   
   onSubmit(){

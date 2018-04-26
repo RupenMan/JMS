@@ -7,11 +7,11 @@ import { JobPosition } from "../shared/models/jobPosition";
  * @author Rupendra MAHARJAN
  */
  export class Recruiter{ 
-    name: string;
+    // name: string;
      address: string;
      contact: string;
      email:string;
      webLink: string;
-     logoURL: string="";
-    //  positions:JobPosition[];
+     logoURL: string;
+     positions:JobPosition[];
  }

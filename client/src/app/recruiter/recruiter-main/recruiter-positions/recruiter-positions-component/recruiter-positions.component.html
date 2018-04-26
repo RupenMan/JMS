@@ -45,6 +45,9 @@
     <ngx-datatable-row-detail [rowHeight]="200" #myDetailRow (toggle)="onDetailToggle($event)">
       <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
         <div style="padding-left:35px">
+          <!-- <div *ngFor=" let applicant of row.applicants">
+            {{applicant.name}}
+          </div> -->
           <h3>Job Description</h3>
           <p>Job Description for job_{{ row.id }}</p>
           <button class="btn btn-primary offset-sm-4" (click)="applyJob($event)" id="{{ row.id }}">
@@ -70,7 +73,7 @@
     </ngx-datatable-column>
     <ngx-datatable-column name="Post Date" width="80">
       <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
-        <strong>{{ row.postDate | date: 'medium'}}</strong>
+        <strong>{{ row.postDate | date: 'MM/d/y'}}</strong>
       </ng-template>
     </ngx-datatable-column>
 
