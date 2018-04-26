@@ -62,9 +62,14 @@
     'has-success': userEmail.valid && (userEmail.touched || userEmail.dirty)
   }">
     <label class="aria-label">Email</label>
-    <input type="email" name="email" [(ngModel)]="email" class="form-control" required #userEmail="ngModel">
-    <div class="form-control-feedback" *ngIf="userEmail.errors && (userEmail.touched || userEmail.dirty)">
+    <input type="email" name="email" 
+    [(ngModel)]="email" class="form-control" required 
+    pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+    #userEmail="ngModel">
+    <div class="form-control-feedback" 
+    *ngIf="userEmail.errors && (userEmail.touched || userEmail.dirty)">
       <p *ngIf="userEmail.errors.required">Required</p>
+      <p *ngIf="userEmail.errors.pattern">Your email must have at least one @ and one . characters</p>
     </div>
 
   </div>

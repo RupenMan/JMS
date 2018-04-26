@@ -23,6 +23,7 @@ export class RecruiterInfoComponent implements OnInit {
       (response:Recruiter) => {
         console.log("Recruiter",response);
         this.recruiter=response;
+        this.fullImagePath = this.recruiter.logoURL || this.fullImagePath;
         // console.log("True Recruiter", this.recruiter);
     },
       err => console.error(err)

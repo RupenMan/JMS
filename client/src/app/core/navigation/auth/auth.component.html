@@ -50,12 +50,12 @@
                       name="email"
                       [(ngModel)]="model.email"
                       required
-                      pattern="[^ @]*@[^ @]*"
+                      pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
                       #email="ngModel">
                <div class="form-control-feedback"
                     *ngIf="email.errors && (email.dirty || email.touched)">
                    <p *ngIf="email.errors.required">Email is required</p>
-                   <p *ngIf="email.errors.pattern">Email must contain at least the @ character</p>
+                   <p *ngIf="email.errors.pattern">Email must contain at least the @ character and a . character</p>
                </div>
            </div>
 
